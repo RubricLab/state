@@ -1,3 +1,4 @@
+- [2025-04-02] [Test publish without bunfig](https://github.com/rubriclab/state/commit/94dd8eba76cb6b702ecc40384a3c049461f4487a)
 - [2025-04-02] [Use NPM config token](https://github.com/rubriclab/state/commit/0fb4d0147b1f5b6609ec2fae16ac76788abb2e4a)
 - [2025-04-02] [Add registry](https://github.com/rubriclab/state/commit/350e3157e14d2bfd9ad5f3299a378ec1dd9fbc7d)
 - [2025-04-02] [Test non-Node publish script](https://github.com/rubriclab/state/commit/195c05d036c3fce38bfe9befa6a25f340d2ead68)
