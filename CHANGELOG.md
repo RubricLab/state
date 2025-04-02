@@ -1,3 +1,4 @@
+- [2025-04-02] [Add repo link](https://github.com/rubriclab/state/commit/7e2539da36fdbd1186ebbc6d2b3b36640b6adb31)
 - [2025-04-02] [Use dashed bins](https://github.com/rubriclab/state/commit/30b1ca829c0e85f426ccb8516f0c14fd91827d61)
 - [2025-04-02] [Use package release script](https://github.com/rubriclab/state/commit/763a702925839208916e4453e443b3b25f6fc597)
 - [2025-04-02] [Test publish without bunfig](https://github.com/rubriclab/state/commit/94dd8eba76cb6b702ecc40384a3c049461f4487a)
