@@ -101,6 +101,12 @@ export function MyComponent() {
 
 Use it as you would `useState`.
 
+### Start the server
+
+Run `bun run rubriclab-state-start` to start the server.
+
+The server can be deployed eg. on Railway by setting this as the custom start command.
+
 ### Test it
 
 Open your Next.js app in two browser windows. Values should be synced between the two.

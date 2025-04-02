@@ -1,3 +1,4 @@
+- [2025-04-02] [Add server setup to README](https://github.com/rubriclab/state/commit/65ad73d54dd47e38ae60a261d247e99f68953a63)
 - [2025-04-02] [Reorder package. Remove broken bins.](https://github.com/rubriclab/state/commit/a988ac0b6ea858f00c2d5e21388d16828712e6cd)
 - [2025-04-02] [Hyphenate bin name](https://github.com/rubriclab/state/commit/ce1e8f469e1654a14d8a15f53cc448b85b441956)
 - [2025-04-02] [Test bin names](https://github.com/rubriclab/state/commit/1197fbf968071aa3ac58f193ad4b1c673d1f12b9)
