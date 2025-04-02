@@ -1,3 +1,4 @@
+- [2025-04-02] [Test bin names](https://github.com/rubriclab/state/commit/1197fbf968071aa3ac58f193ad4b1c673d1f12b9)
 - [2025-04-02] [Mark package as public](https://github.com/rubriclab/state/commit/3a62f066a62bb222523731fa358659b6c2ed1e83)
 - [2025-04-02] [Add relative paths to bins](https://github.com/rubriclab/state/commit/4780e482c84468f855ed05be96789873f2079c03)
 - [2025-04-02] [Add test bin](https://github.com/rubriclab/state/commit/502106babc09ed594893236aa621355ddcc96906)
