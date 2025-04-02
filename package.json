@@ -1,6 +1,6 @@
 {
   "name": "@rubriclab/state",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "publishConfig": {
     "access": "public"
   },
@@ -23,7 +23,7 @@
     "type": "git",
     "url": "https://github.com/RubricLab/state.git"
   },
-  "main": "index.ts",
+  "private": false,
   "dependencies": {
     "zod": "3.24.1",
     "@rubriclab/package": "*"
