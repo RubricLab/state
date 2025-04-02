@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./*"]
+		},
+		"target": "esnext"
+	},
+	"exclude": ["node_modules"],
+	"extends": "@rubriclab/config/tsconfig",
+	"include": ["./**/*.ts", "./**/*.tsx"]
+}

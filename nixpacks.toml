@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ['bun']
+
+[phases.install]
+cmds = ['bun install --production']
+
+[start]
+cmd = 'bun run ./server.ts'
