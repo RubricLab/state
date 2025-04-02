@@ -1,0 +1,1 @@
+registry = { url = "https://registry.npmjs.org", token = "$NODE_AUTH_TOKEN" }
