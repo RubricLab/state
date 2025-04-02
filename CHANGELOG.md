@@ -1,3 +1,4 @@
+- [2025-04-02] [Reorder package. Remove broken bins.](https://github.com/rubriclab/state/commit/a988ac0b6ea858f00c2d5e21388d16828712e6cd)
 - [2025-04-02] [Hyphenate bin name](https://github.com/rubriclab/state/commit/ce1e8f469e1654a14d8a15f53cc448b85b441956)
 - [2025-04-02] [Test bin names](https://github.com/rubriclab/state/commit/1197fbf968071aa3ac58f193ad4b1c673d1f12b9)
 - [2025-04-02] [Mark package as public](https://github.com/rubriclab/state/commit/3a62f066a62bb222523731fa358659b6c2ed1e83)
