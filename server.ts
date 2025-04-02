@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import { serve } from 'bun'
 import { StateManager } from './state'
 import type { Channel } from './types'

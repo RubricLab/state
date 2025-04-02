@@ -1,3 +1,4 @@
+- [2025-04-02] [Use dashed bins](https://github.com/rubriclab/state/commit/30b1ca829c0e85f426ccb8516f0c14fd91827d61)
 - [2025-04-02] [Use package release script](https://github.com/rubriclab/state/commit/763a702925839208916e4453e443b3b25f6fc597)
 - [2025-04-02] [Test publish without bunfig](https://github.com/rubriclab/state/commit/94dd8eba76cb6b702ecc40384a3c049461f4487a)
 - [2025-04-02] [Use NPM config token](https://github.com/rubriclab/state/commit/0fb4d0147b1f5b6609ec2fae16ac76788abb2e4a)

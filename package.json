@@ -1,6 +1,6 @@
 {
   "name": "@rubriclab/state",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "publishConfig": {
     "access": "public"
   },
@@ -15,8 +15,8 @@
     "lint:fix": "bun x biome lint . --write --unsafe"
   },
   "bin": {
-    "@rubriclab/state:start": "bun server.ts",
-    "@rubriclab/state/dev": "bun --hot server.ts"
+    "rubriclab-state:start": "bun server.ts",
+    "rubriclab-state-dev": "bun --hot server.ts"
   },
   "main": "index.ts",
   "dependencies": {
