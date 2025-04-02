@@ -1,6 +1,6 @@
 {
   "name": "@rubriclab/state",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publishConfig": {
     "access": "public"
   },
@@ -16,7 +16,7 @@
   },
   "bin": {
     "@rubriclab/state:start": "bun server.ts",
-    "@rubriclab/state:dev": "bun --hot server.ts"
+    "@rubriclab/state/dev": "bun --hot server.ts"
   },
   "main": "index.ts",
   "dependencies": {
