@@ -41,7 +41,7 @@ export const schema = z.object({
 
 The provider handles fetching initial data for first-paint (SSR)
 
-```ts
+```tsx
 import { RealtimeProvider } from '@rubriclab/state'
 
 export default function Layout({ children }) {
@@ -57,7 +57,7 @@ export default function Layout({ children }) {
 
 Pass your schema into the hook creator to get typesafe states.
 
-```ts
+```tsx
 import { createLiveState } from '@rubriclab/state/client'
 
 const { useLiveState } = createLiveState(schema)
@@ -71,6 +71,31 @@ export function MyComponent() {
       [crypto.randomUUID()]: { title: 'New todo', completed: false }
     }))
   }
+
+  return (
+    <div>
+      <button onClick={addTodo} type="button">
+        Add Todo
+      </button>
+      <ul>
+        {Object.entries(todos).map(([id, todo]) => (
+          <li key={id}>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => 
+                setTodos(prev => ({
+                  ...prev,
+                  [id]: { ...todo, completed: !todo.completed }
+                }))
+              }
+            />
+            {todo.title}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 ```
 
