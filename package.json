@@ -1,6 +1,6 @@
 {
   "name": "@rubriclab/state",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "publishConfig": {
     "access": "public"
   },
@@ -16,7 +16,8 @@
   },
   "bin": {
     "rubriclab-state:start": "bun server.ts",
-    "rubriclab-state-dev": "bun --hot server.ts"
+    "rubriclab-state-dev": "bun --hot server.ts",
+    "rubriclab-statetest": "echo 'success'"
   },
   "repository": {
     "type": "git",
