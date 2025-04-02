@@ -2,6 +2,7 @@ import { serve } from 'bun'
 import { StateManager } from './state'
 import type { Channel } from './types'
 import { z } from 'zod'
+import { generateId } from './utils'
 
 const eventSchema = z.object({
 	key: z.string(),
@@ -16,7 +17,7 @@ const server = serve({
 		'/': req => {
 			const cookies = req.cookies
 			const { searchParams } = new URL(req.url)
-			const channelId = searchParams.get('channelId') || crypto.randomUUID()
+			const channelId = searchParams.get('channelId') || generateId()
 			const state = stateManager.get(channelId)
 
 			cookies.set('channelId', channelId, {

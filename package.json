@@ -1,6 +1,6 @@
 {
   "name": "@rubriclab/state",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publishConfig": {
     "access": "public"
   },
@@ -15,18 +15,13 @@
     "lint:fix": "bun x biome lint . --write --unsafe"
   },
   "main": "index.ts",
-  "type": "module",
   "dependencies": {
     "zod": "3.24.1",
     "@rubriclab/package": "*"
   },
   "devDependencies": {
-    "@rubriclab/config": "^0.0.15",
+    "@rubriclab/config": "*",
     "@types/bun": "latest"
-  },
-  "bin": {
-    "serve": "bun start",
-    "dev": "bun dev"
   },
   "peerDependencies": {
     "react": "^19.0.0",
