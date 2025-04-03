@@ -1,3 +1,4 @@
+- [2025-04-03] [Support top-level defaults in schema](https://github.com/rubriclab/state/commit/d1106dc8341bf3178f5ff6659bd7dadec7e628c4)
 - [2025-04-03] [Only publish websocket events to others](https://github.com/rubriclab/state/commit/0bcf418fb7dc465ac8241fae322fa1dfcc136b2b)
 - [2025-04-02] [Add server setup to README](https://github.com/rubriclab/state/commit/65ad73d54dd47e38ae60a261d247e99f68953a63)
 - [2025-04-02] [Reorder package. Remove broken bins.](https://github.com/rubriclab/state/commit/a988ac0b6ea858f00c2d5e21388d16828712e6cd)

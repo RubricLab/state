@@ -1,12 +1,15 @@
 import { cookies } from 'next/headers'
 import { ProviderClient } from './client'
+import type { z } from 'zod'
 
 export async function RealtimeProvider({
 	children,
-	websocketUrl
+	websocketUrl,
+	schema
 }: {
 	children: React.ReactNode
 	websocketUrl: string
+	schema: z.ZodType
 }) {
 	const cookieStore = await cookies()
 
@@ -16,7 +19,9 @@ export async function RealtimeProvider({
 
 	const res = await fetch(`${websocketUrl}?channelId=${channelId}`)
 
-	const initialState = await res.json()
+	const initialStateRaw = await res.text()
+	const initialStateJson = initialStateRaw ? JSON.parse(initialStateRaw) : undefined
+	const initialState = schema.parse(initialStateJson)
 
 	channelId = res.headers.get('Set-Cookie')?.split('; ')[0]?.split('=')[1] || ''
 

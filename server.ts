@@ -61,11 +61,6 @@ const server = serve({
 		open(ws) {
 			const { channelId } = ws.data as unknown as Channel
 			ws.subscribe(channelId)
-
-			const state = stateManager.get(channelId)
-			if (!state) return
-
-			ws.send(JSON.stringify(state.getAll()))
 		},
 		close(ws) {
 			const { channelId } = ws.data as unknown as Channel

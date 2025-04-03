@@ -3,7 +3,7 @@
 import { type ReactNode, createContext, useContext, useEffect, useState } from 'react'
 import { z } from 'zod'
 
-type GenericSchema = z.AnyZodObject
+type GenericSchema = z.ZodType
 
 type RealtimeContextType<T extends GenericSchema = GenericSchema> = {
 	getValue: <Key extends keyof z.infer<T>>(key: Key) => z.infer<T>[Key] | undefined
@@ -24,7 +24,7 @@ type Subscriber<T extends GenericSchema = GenericSchema> = <Key extends keyof z.
 
 const subscribers = new Set<Subscriber>()
 
-function createSocket<T extends z.AnyZodObject>({
+function createSocket<T extends GenericSchema>({
 	websocketUrl,
 	eventSchema,
 	channelId

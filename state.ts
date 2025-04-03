@@ -1,21 +1,22 @@
 import type { z } from 'zod'
 
 class State<T extends z.AnyZodObject> {
-	private state: z.infer<T>
+	private state: z.infer<T> | undefined
 
 	constructor(initialState?: z.infer<T>) {
-		this.state = initialState || {}
+		this.state = initialState
 	}
 
 	get<K extends keyof z.infer<T>>(key: K): z.infer<T>[K] | undefined {
 		return this.state?.[key]
 	}
 
-	getAll(): z.infer<T> {
+	getAll(): z.infer<T> | undefined {
 		return this.state
 	}
 
 	async set<K extends keyof z.infer<T>>(key: K, value: z.infer<T>[K]): Promise<z.infer<T>[K]> {
+		if (!this.state) this.state = {} as z.infer<T>
 		this.state[key] = value
 		return value
 	}
