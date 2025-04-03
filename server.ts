@@ -44,6 +44,7 @@ const server = serve({
 		'/**': () => new Response('try /', { status: 404 })
 	},
 	websocket: {
+		publishToSelf: false,
 		message: async (ws, message) => {
 			const payload = JSON.parse(message.toString())
 			const [key, value] = Object.entries(payload)[0] as [string, string]
@@ -55,7 +56,7 @@ const server = serve({
 
 			const newVal = await state.set(parsed.key, parsed.value)
 
-			server.publish(channelId, JSON.stringify({ [key]: newVal }))
+			ws.publish(channelId, JSON.stringify({ [key]: newVal }))
 		},
 		open(ws) {
 			const { channelId } = ws.data as unknown as Channel
