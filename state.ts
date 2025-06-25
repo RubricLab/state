@@ -4,6 +4,12 @@ import Redis from 'ioredis'
 // Initialize Redis client if REDIS_URL is provided
 const redis = process.env.REDIS_URL ? new Redis(process.env.REDIS_URL) : null
 
+if (redis) {
+	console.log('Redis connected')
+} else {
+	console.log('Redis not connected')
+}
+
 class State<T extends z.AnyZodObject> {
 	private state: z.infer<T> | undefined
 	private channelId: string
