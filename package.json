@@ -1,43 +1,43 @@
 {
-  "name": "@rubriclab/state",
-  "version": "0.0.27",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/RubricLab/state.git"
-  },
-  "bin": {
-    "rubriclab-state-start": "./server.ts"
-  },
-  "simple-git-hooks": {
-    "post-commit": "bun run rubriclab-postcommit"
-  },
-  "scripts": {
-    "dev": "bun --hot server.ts",
-    "start": "bun server.ts",
-    "prepare": "bun x simple-git-hooks",
-    "bleed": "bun x npm-check-updates -u",
-    "clean": "rm -rf .next && rm -rf node_modules",
-    "format": "bun x biome format --write .",
-    "lint": "bun x biome check .",
-    "lint:fix": "bun x biome lint . --write --unsafe"
-  },
-  "private": false,
-  "dependencies": {
-    "@rubriclab/package": "*",
-    "ioredis": "^5.6.1",
-    "zod": "3.24.2"
-  },
-  "devDependencies": {
-    "@rubriclab/config": "*",
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@rubriclab/state",
+	"version": "0.0.28",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/RubricLab/state.git"
+	},
+	"bin": {
+		"rubriclab-state-start": "./server.ts"
+	},
+	"simple-git-hooks": {
+		"post-commit": "bun x @rubriclab/package post-commit"
+	},
+	"scripts": {
+		"dev": "bun --hot server.ts",
+		"start": "bun server.ts",
+		"prepare": "bun x @rubriclab/package prepare",
+		"bleed": "bun x npm-check-updates -u",
+		"clean": "rm -rf .next && rm -rf node_modules",
+		"format": "bun x biome format --write .",
+		"lint": "bun x biome check .",
+		"lint:fix": "bun x biome lint . --write --unsafe"
+	},
+	"private": false,
+	"dependencies": {
+		"@rubriclab/package": "*",
+		"ioredis": "^5.6.1",
+		"zod": "3.24.2"
+	},
+	"devDependencies": {
+		"@rubriclab/config": "*",
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
