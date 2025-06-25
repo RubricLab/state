@@ -1,6 +1,6 @@
 {
   "name": "@rubriclab/state",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "repository": {
     "type": "git",
     "url": "https://github.com/RubricLab/state.git"
@@ -23,8 +23,9 @@
   },
   "private": false,
   "dependencies": {
-    "zod": "3.24.2",
-    "@rubriclab/package": "*"
+    "@rubriclab/package": "*",
+    "ioredis": "^5.6.1",
+    "zod": "3.24.2"
   },
   "devDependencies": {
     "@rubriclab/config": "*",

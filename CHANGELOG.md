@@ -1,3 +1,4 @@
+- [2025-06-25] [Add optional persistence in Redis](https://github.com/rubriclab/state/commit/2dbb2d72694ac95b2d75adda9650a91f950abeca)
 - [2025-04-14] [Bump Zod version](https://github.com/rubriclab/state/commit/214677452cd2272e23c1569253dc959b75f99eca)
 - [2025-04-03] [Support top-level defaults in schema](https://github.com/rubriclab/state/commit/d1106dc8341bf3178f5ff6659bd7dadec7e628c4)
 - [2025-04-03] [Only publish websocket events to others](https://github.com/rubriclab/state/commit/0bcf418fb7dc465ac8241fae322fa1dfcc136b2b)

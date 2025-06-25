@@ -1,10 +1,39 @@
 import type { z } from 'zod'
+import Redis from 'ioredis'
+
+// Initialize Redis client if REDIS_URL is provided
+const redis = process.env.REDIS_URL ? new Redis(process.env.REDIS_URL) : null
 
 class State<T extends z.AnyZodObject> {
 	private state: z.infer<T> | undefined
+	private channelId: string
 
-	constructor(initialState?: z.infer<T>) {
+	constructor(channelId: string, initialState?: z.infer<T>) {
+		this.channelId = channelId
 		this.state = initialState
+	}
+
+	async loadFromRedis(): Promise<void> {
+		if (!redis) return
+
+		try {
+			const data = await redis.get(`state:${this.channelId}`)
+			if (data) {
+				this.state = JSON.parse(data)
+			}
+		} catch (error) {
+			console.error({ error, channelId: this.channelId }, 'Failed to load state from Redis')
+		}
+	}
+
+	private async saveToRedis(): Promise<void> {
+		if (!redis || !this.state) return
+
+		try {
+			await redis.set(`state:${this.channelId}`, JSON.stringify(this.state))
+		} catch (error) {
+			console.error({ error, channelId: this.channelId }, 'Failed to save state to Redis')
+		}
 	}
 
 	get<K extends keyof z.infer<T>>(key: K): z.infer<T>[K] | undefined {
@@ -18,7 +47,21 @@ class State<T extends z.AnyZodObject> {
 	async set<K extends keyof z.infer<T>>(key: K, value: z.infer<T>[K]): Promise<z.infer<T>[K]> {
 		if (!this.state) this.state = {} as z.infer<T>
 		this.state[key] = value
+
+		// Persist to Redis if available
+		await this.saveToRedis()
+
 		return value
+	}
+
+	async deleteFromRedis(): Promise<void> {
+		if (!redis) return
+
+		try {
+			await redis.del(`state:${this.channelId}`)
+		} catch (error) {
+			console.error({ error, channelId: this.channelId }, 'Failed to delete state from Redis')
+		}
 	}
 }
 
@@ -30,7 +73,7 @@ export class StateManager {
 		this.stateMap = new Map()
 	}
 
-	get(channelId: string): State<z.AnyZodObject> {
+	async get(channelId: string): Promise<State<z.AnyZodObject>> {
 		const existingState = this.stateMap.get(channelId)
 
 		if (existingState) return existingState
@@ -39,16 +82,31 @@ export class StateManager {
 			throw new Error(`Max of ${this.MAX_CHANNELS} channels reached`)
 		}
 
-		const state = new State()
+		const state = new State(channelId)
+
+		// Load state from Redis if available
+		await state.loadFromRedis()
+
 		this.stateMap.set(channelId, state)
 		return state
 	}
 
-	delete(channelId: string): void {
+	async delete(channelId: string): Promise<void> {
+		const state = this.stateMap.get(channelId)
+		if (state) {
+			await state.deleteFromRedis()
+		}
 		this.stateMap.delete(channelId)
 	}
 
 	getCount(): number {
 		return this.stateMap.size
+	}
+
+	// Method to close Redis connection when shutting down
+	async close(): Promise<void> {
+		if (redis) {
+			await redis.quit()
+		}
 	}
 }

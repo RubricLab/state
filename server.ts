@@ -16,11 +16,11 @@ const stateManager = new StateManager()
 const server = serve({
 	port: 3001,
 	routes: {
-		'/': req => {
+		'/': async req => {
 			const cookies = req.cookies
 			const { searchParams } = new URL(req.url)
 			const channelId = searchParams.get('channelId') || generateId()
-			const state = stateManager.get(channelId)
+			const state = await stateManager.get(channelId)
 
 			cookies.set('channelId', channelId, {
 				httpOnly: false,
@@ -51,7 +51,7 @@ const server = serve({
 			const { channelId } = ws.data as unknown as Channel
 			const parsed = eventSchema.parse({ key, value })
 
-			const state = stateManager.get(channelId)
+			const state = await stateManager.get(channelId)
 			if (!state) return
 
 			const newVal = await state.set(parsed.key, parsed.value)
@@ -70,3 +70,15 @@ const server = serve({
 })
 
 console.log(`Server running on port ${server.port}`)
+
+process.on('SIGINT', async () => {
+	console.log('Shutting down server...')
+	await stateManager.close()
+	process.exit(0)
+})
+
+process.on('SIGTERM', async () => {
+	console.log('Shutting down server...')
+	await stateManager.close()
+	process.exit(0)
+})

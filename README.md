@@ -107,6 +107,22 @@ Run `bun run rubriclab-state-start` to start the server.
 
 The server can be deployed eg. on Railway by setting this as the custom start command.
 
+### Redis Persistence (Optional)
+
+To enable state persistence across server restarts, set the `REDIS_URL` environment variable:
+
+```sh
+REDIS_URL=redis://localhost:6379 bun run rubriclab-state-start
+```
+
+When Redis is configured:
+- State is automatically persisted to Redis on every update
+- State is loaded from Redis when a channel is accessed
+- State persists across server restarts and deployments
+- Each channel's state is stored with the key pattern `state:{channelId}`
+
+This is particularly useful for production deployments where you want state to survive server restarts.
+
 ### Test it
 
 Open your Next.js app in two browser windows. Values should be synced between the two.
@@ -124,6 +140,7 @@ then refreshing - the page should still reflect fresh data.
 - 🚀 Built with Bun.js for performance
 - ⚡️ Minimal API surface
 - 🔌 WebSocket-based communication
+- 💾 Optional Redis persistence for production deployments
 
 ## Development
 
