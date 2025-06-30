@@ -5,17 +5,17 @@ import { ProviderClient } from './client'
 export async function RealtimeProvider({
 	children,
 	websocketUrl,
+	channelId,
 	schema
 }: {
 	children: React.ReactNode
 	websocketUrl: string
+	channelId?: string
 	schema: z.ZodType
 }) {
 	const cookieStore = await cookies()
 
-	let channelId = ''
-
-	channelId = cookieStore.get('channelId')?.value || ''
+	channelId = channelId || cookieStore.get('channelId')?.value || ''
 
 	const res = await fetch(`${websocketUrl}?channelId=${channelId}`)
 

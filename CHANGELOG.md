@@ -1,3 +1,4 @@
+- [2025-06-30] [Parametrize room ID](https://github.com/rubriclab/state/commit/c2ae3458dc0875e412d2cbbe9b475a95e093f2a5)
 - [2025-06-30] [Remove redundant cookie-setting code](https://github.com/rubriclab/state/commit/89a01a0303e7adbf3f1307267dd25ad7ef96cb84)
 - [2025-06-30] [Adjust cookies for Safari](https://github.com/rubriclab/state/commit/dd7c6f75398a934003747b11fae305679673b98b)
 - [2025-06-30] [Add Biome and format](https://github.com/rubriclab/state/commit/ae42f3b8ead59e51ee9e4e83230298e0d41d8ecc)
