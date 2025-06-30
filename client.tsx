@@ -1,6 +1,6 @@
 'use client'
 
-import { type ReactNode, createContext, useContext, useEffect, useState } from 'react'
+import { createContext, type ReactNode, useContext, useEffect, useState } from 'react'
 import { z } from 'zod'
 
 type GenericSchema = z.ZodType
@@ -28,7 +28,11 @@ function createSocket<T extends GenericSchema>({
 	websocketUrl,
 	eventSchema,
 	channelId
-}: { websocketUrl: string; eventSchema: T; channelId: string }) {
+}: {
+	websocketUrl: string
+	eventSchema: T
+	channelId: string
+}) {
 	socket = new WebSocket(`${websocketUrl.replace('http', 'ws')}?channelId=${channelId}`)
 
 	socket.addEventListener('message', event => {
@@ -68,9 +72,9 @@ export function ProviderClient<T extends GenericSchema>({
 		}
 	}, [channelId])
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: we need to create the socket on mount
 	useEffect(() => {
-		if (!socket) createSocket({ websocketUrl, eventSchema, channelId })
+		if (!socket) createSocket({ channelId, eventSchema, websocketUrl })
 
 		function subscriber<Key extends keyof z.infer<T>>(key: Key, value: z.infer<T>[Key]) {
 			setState(prev => ({ ...prev, [key]: value }))

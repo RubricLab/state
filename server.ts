@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 
 import { serve } from 'bun'
+import { z } from 'zod'
 import { StateManager } from './state'
 import type { Channel } from './types'
-import { z } from 'zod'
 import { generateId } from './utils'
 
 const eventSchema = z.object({
@@ -24,27 +24,30 @@ const server = serve({
 
 			cookies.set('channelId', channelId, {
 				httpOnly: false,
-				secure: true,
-				sameSite: 'none' as const,
+				maxAge: 60 * 60 * 24 * 30, // 30 days
 				path: '/',
-				maxAge: 60 * 60 * 24 * 30 // 30 days
+				sameSite: 'none' as const,
+				secure: true
 			})
 
 			const headers = new Headers({
-				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': 'true',
+				'Access-Control-Allow-Origin': '*',
 				'Set-Cookie': cookies.toSetCookieHeaders().join('; ')
 			})
 
 			if (server.upgrade(req, { data: { channelId }, headers }))
-				return new Response('ok', { status: 101, headers })
+				return new Response('ok', { headers, status: 101 })
 
 			return Response.json(state?.getAll(), { headers })
 		},
 		'/**': () => new Response('try /', { status: 404 })
 	},
 	websocket: {
-		publishToSelf: false,
+		close(ws) {
+			const { channelId } = ws.data as unknown as Channel
+			ws.unsubscribe(channelId)
+		},
 		message: async (ws, message) => {
 			const payload = JSON.parse(message.toString())
 			const [key, value] = Object.entries(payload)[0] as [string, string]
@@ -62,10 +65,7 @@ const server = serve({
 			const { channelId } = ws.data as unknown as Channel
 			ws.subscribe(channelId)
 		},
-		close(ws) {
-			const { channelId } = ws.data as unknown as Channel
-			ws.unsubscribe(channelId)
-		}
+		publishToSelf: false
 	}
 })
 

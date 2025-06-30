@@ -1,5 +1,5 @@
-import type { z } from 'zod'
 import Redis from 'ioredis'
+import type { z } from 'zod'
 
 // Initialize Redis client if REDIS_URL is provided
 const redis = process.env.REDIS_URL ? new Redis(process.env.REDIS_URL) : null
@@ -28,7 +28,7 @@ class State<T extends z.AnyZodObject> {
 				this.state = JSON.parse(data)
 			}
 		} catch (error) {
-			console.error({ error, channelId: this.channelId }, 'Failed to load state from Redis')
+			console.error({ channelId: this.channelId, error }, 'Failed to load state from Redis')
 		}
 	}
 
@@ -38,7 +38,7 @@ class State<T extends z.AnyZodObject> {
 		try {
 			await redis.set(`state:${this.channelId}`, JSON.stringify(this.state))
 		} catch (error) {
-			console.error({ error, channelId: this.channelId }, 'Failed to save state to Redis')
+			console.error({ channelId: this.channelId, error }, 'Failed to save state to Redis')
 		}
 	}
 
@@ -66,7 +66,7 @@ class State<T extends z.AnyZodObject> {
 		try {
 			await redis.del(`state:${this.channelId}`)
 		} catch (error) {
-			console.error({ error, channelId: this.channelId }, 'Failed to delete state from Redis')
+			console.error({ channelId: this.channelId, error }, 'Failed to delete state from Redis')
 		}
 	}
 }

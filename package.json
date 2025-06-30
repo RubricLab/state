@@ -1,27 +1,7 @@
 {
-	"name": "@rubriclab/state",
-	"version": "0.0.28",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/RubricLab/state.git"
-	},
 	"bin": {
 		"rubriclab-state-start": "./server.ts"
 	},
-	"simple-git-hooks": {
-		"post-commit": "bun x @rubriclab/package post-commit"
-	},
-	"scripts": {
-		"dev": "bun --hot server.ts",
-		"start": "bun server.ts",
-		"prepare": "bun x @rubriclab/package prepare",
-		"bleed": "bun x npm-check-updates -u",
-		"clean": "rm -rf .next && rm -rf node_modules",
-		"format": "bun x biome format --write .",
-		"lint": "bun x biome check .",
-		"lint:fix": "bun x biome lint . --write --unsafe"
-	},
-	"private": false,
 	"dependencies": {
 		"@rubriclab/package": "*",
 		"ioredis": "^5.6.1",
@@ -31,13 +11,33 @@
 		"@rubriclab/config": "*",
 		"@types/bun": "latest"
 	},
+	"name": "@rubriclab/state",
 	"peerDependencies": {
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
 		"@types/react": "^19.0.0",
-		"@types/react-dom": "^19.0.0"
+		"@types/react-dom": "^19.0.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
+	"private": false,
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/RubricLab/state.git"
+	},
+	"scripts": {
+		"bleed": "bun x npm-check-updates -u",
+		"clean": "rm -rf .next && rm -rf node_modules",
+		"dev": "bun --hot server.ts",
+		"format": "bun x biome format --write .",
+		"lint": "bun x biome check .",
+		"lint:fix": "bun x biome lint . --write --unsafe",
+		"prepare": "bun x @rubriclab/package prepare",
+		"start": "bun server.ts"
+	},
+	"simple-git-hooks": {
+		"post-commit": "bun x @rubriclab/package post-commit"
+	},
+	"version": "0.0.29"
 }

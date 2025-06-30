@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
-import { ProviderClient } from './client'
 import type { z } from 'zod'
+import { ProviderClient } from './client'
 
 export async function RealtimeProvider({
 	children,
