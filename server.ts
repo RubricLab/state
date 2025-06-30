@@ -26,8 +26,8 @@ const server = serve({
 				httpOnly: false,
 				maxAge: 60 * 60 * 24 * 30, // 30 days
 				path: '/',
-				sameSite: 'none' as const,
-				secure: true
+				sameSite: 'lax' as const,
+				secure: false
 			})
 
 			const headers = new Headers({

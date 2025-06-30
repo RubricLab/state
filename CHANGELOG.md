@@ -1,3 +1,4 @@
+- [2025-06-30] [Adjust cookies for Safari](https://github.com/rubriclab/state/commit/dd7c6f75398a934003747b11fae305679673b98b)
 - [2025-06-30] [Add Biome and format](https://github.com/rubriclab/state/commit/ae42f3b8ead59e51ee9e4e83230298e0d41d8ecc)
 - [2025-06-25] [Use package post-commit hooks](https://github.com/rubriclab/state/commit/ed55a495c1bcc561a5f3b9831402e7245385fba9)
 - [2025-06-25] [Add log](https://github.com/rubriclab/state/commit/9e126c6b77536f2f41662974732575899c91ff34)
