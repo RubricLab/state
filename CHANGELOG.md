@@ -1,3 +1,4 @@
+- [2025-07-01] [run format](https://github.com/RubricLab/state/commit/2ccbd6d49c92c4d11da9c73b9e83561ff4e08258)
 - [2025-07-01] [consolidate biome format script](https://github.com/RubricLab/state/commit/a4f45d0cd36cf2b7df80803f9bc23bff8925c0b3)
 - [2025-06-30] [Parametrize room ID](https://github.com/rubriclab/state/commit/c2ae3458dc0875e412d2cbbe9b475a95e093f2a5)
 - [2025-06-30] [Remove redundant cookie-setting code](https://github.com/rubriclab/state/commit/89a01a0303e7adbf3f1307267dd25ad7ef96cb84)
