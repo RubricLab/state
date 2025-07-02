@@ -1,5 +1,5 @@
 import Redis from 'ioredis'
-import type { z } from 'zod'
+import type { z } from 'zod/v4'
 
 // Initialize Redis client if REDIS_URL is provided
 const redis = process.env.REDIS_URL ? new Redis(process.env.REDIS_URL) : null
@@ -10,7 +10,9 @@ if (redis) {
 	console.log('Redis not connected')
 }
 
-class State<T extends z.AnyZodObject> {
+type StateGeneric = z.ZodObject
+
+class State<T extends StateGeneric> {
 	private state: z.infer<T> | undefined
 	private channelId: string
 
@@ -73,13 +75,13 @@ class State<T extends z.AnyZodObject> {
 
 export class StateManager {
 	private MAX_CHANNELS = 100_000
-	private stateMap: Map<string, State<z.AnyZodObject>>
+	private stateMap: Map<string, State<StateGeneric>>
 
 	constructor() {
 		this.stateMap = new Map()
 	}
 
-	async get(channelId: string): Promise<State<z.AnyZodObject>> {
+	async get(channelId: string): Promise<State<StateGeneric>> {
 		const existingState = this.stateMap.get(channelId)
 
 		if (existingState) return existingState

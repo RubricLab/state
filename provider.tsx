@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import type { z } from 'zod'
+import type { z } from 'zod/v4'
 import { ProviderClient } from './client'
 
 export async function RealtimeProvider({
@@ -11,7 +11,7 @@ export async function RealtimeProvider({
 	children: React.ReactNode
 	websocketUrl: string
 	channelId?: string
-	schema: z.ZodType
+	schema: z.ZodObject<Record<string, z.ZodTypeAny>>
 }) {
 	const cookieStore = await cookies()
 

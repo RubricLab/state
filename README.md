@@ -27,7 +27,7 @@ export default {
 To get started, define a few objects.
 
 ```ts
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const schema = z.object({
   todos: z.record(z.string(), z.object({
