@@ -65,6 +65,13 @@ export function ProviderClient<T extends GenericSchema>({
 		value: z.any()
 	})
 
+	useEffect(() => {
+		if (channelId && typeof document !== 'undefined') {
+			const expiry = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toUTCString() // 30 days
+			document.cookie = `channelId=${channelId}; path=/; secure; samesite=none; expires=${expiry}`
+		}
+	}, [channelId])
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: we need to create the socket on mount
 	useEffect(() => {
 		if (!socket) createSocket({ channelId, eventSchema, websocketUrl })
