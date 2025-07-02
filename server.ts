@@ -1,19 +1,13 @@
 #!/usr/bin/env bun
 
 import { serve } from 'bun'
-import { z } from 'zod'
 import { StateManager } from './state'
 import type { Channel } from './types'
-import { generateId } from './utils'
-
-const eventSchema = z.object({
-	key: z.string(),
-	value: z.any()
-})
+import { eventSchema, generateId, THIRTY_DAYS } from './utils'
 
 const stateManager = new StateManager()
 
-const server = serve({
+const server = serve<Channel, { '/': Response; '/**': Response }>({
 	port: 3001,
 	routes: {
 		'/': async req => {
@@ -24,7 +18,7 @@ const server = serve({
 
 			cookies.set('channelId', channelId, {
 				httpOnly: false,
-				maxAge: 60 * 60 * 24 * 30, // 30 days
+				maxAge: THIRTY_DAYS,
 				path: '/',
 				sameSite: 'lax' as const,
 				secure: false
@@ -36,7 +30,7 @@ const server = serve({
 				'Set-Cookie': cookies.toSetCookieHeaders().join('; ')
 			})
 
-			if (server.upgrade(req, { data: { channelId }, headers }))
+			if (server.upgrade<Channel>(req, { data: { channelId }, headers }))
 				return new Response('ok', { headers, status: 101 })
 
 			return Response.json(state?.getAll(), { headers })
@@ -45,13 +39,13 @@ const server = serve({
 	},
 	websocket: {
 		close(ws) {
-			const { channelId } = ws.data as unknown as Channel
+			const { channelId } = ws.data
 			ws.unsubscribe(channelId)
 		},
 		message: async (ws, message) => {
 			const payload = JSON.parse(message.toString())
 			const [key, value] = Object.entries(payload)[0] as [string, string]
-			const { channelId } = ws.data as unknown as Channel
+			const { channelId } = ws.data
 			const parsed = eventSchema.parse({ key, value })
 
 			const state = await stateManager.get(channelId)
@@ -62,7 +56,7 @@ const server = serve({
 			ws.publish(channelId, JSON.stringify({ [key]: newVal }))
 		},
 		open(ws) {
-			const { channelId } = ws.data as unknown as Channel
+			const { channelId } = ws.data
 			ws.subscribe(channelId)
 		},
 		publishToSelf: false
