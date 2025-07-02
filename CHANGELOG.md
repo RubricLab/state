@@ -1,3 +1,4 @@
+- [2025-07-02] [Allow default schema values](https://github.com/rubriclab/state/commit/590b703aae0e069ad78be0f3e1c4f40737881ce1)
 - [2025-07-02] [Migrate to Zod 4 [ROUGH]](https://github.com/rubriclab/state/commit/387d8251bbb9f89b06b99fad80ed64a341255fa5)
 - [2025-07-02] [Make server more typesafe](https://github.com/rubriclab/state/commit/43a77f607fd0f2942e21f9634ba3953267de0d75)
 - [2025-07-02] [Bring back client-side cookie-set](https://github.com/rubriclab/state/commit/74f79bd2b7dfa32e834428591361e613076187fb)

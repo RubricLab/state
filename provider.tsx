@@ -11,7 +11,7 @@ export async function RealtimeProvider({
 	children: React.ReactNode
 	websocketUrl: string
 	channelId?: string
-	schema: z.ZodObject<Record<string, z.ZodTypeAny>>
+	schema: z.ZodDefault<z.ZodObject<Record<string, z.ZodTypeAny>>>
 }) {
 	const cookieStore = await cookies()
 

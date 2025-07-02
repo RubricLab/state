@@ -2,10 +2,11 @@
 
 import { serve } from 'bun'
 import { StateManager } from './state'
-import type { Channel } from './types'
 import { eventSchema, generateId, THIRTY_DAYS } from './utils'
 
 const stateManager = new StateManager()
+
+type Channel = { channelId: string }
 
 const server = serve<Channel, { '/': Response; '/**': Response }>({
 	port: 3001,

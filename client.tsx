@@ -4,7 +4,7 @@ import { createContext, type ReactNode, useContext, useEffect, useState } from '
 import type { z } from 'zod/v4'
 import { eventSchema, THIRTY_DAYS } from './utils'
 
-type GenericSchema = z.ZodObject<Record<string, z.ZodTypeAny>>
+type GenericSchema = z.ZodDefault<z.ZodObject<Record<string, z.ZodTypeAny>>>
 
 type Updater<T extends GenericSchema = GenericSchema> = (
 	prev: z.infer<T>[keyof z.infer<T>] | undefined
