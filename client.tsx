@@ -109,7 +109,13 @@ export function ProviderClient<T extends GenericSchema>({
 			return { ...prev, [key]: newValue }
 		})
 		const valueToSend = updater instanceof Function ? updater(state[key]) : updater
-		socket?.send(JSON.stringify({ [key as string]: valueToSend }))
+
+		if (socket?.readyState !== WebSocket.OPEN) {
+			console.warn(`WebSocket in state ${socket?.readyState}; skipping send`)
+			return
+		}
+
+		socket.send(JSON.stringify({ [key as string]: valueToSend }))
 	}
 
 	const RealtimeContext = getRealtimeContext<T>()

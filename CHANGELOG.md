@@ -1,3 +1,4 @@
+- [2025-07-03] [Block WebSocket push before ready](https://github.com/rubriclab/state/commit/a7230873374db777d2ee0d2b66d99c515713b8c4)
 - [2025-07-03] [Make typesafety more robust](https://github.com/rubriclab/state/commit/ad2a29e1e3dc22d253bfcc46ca069cddbbc76f9f)
 - [2025-07-02] [Allow default schema values](https://github.com/rubriclab/state/commit/590b703aae0e069ad78be0f3e1c4f40737881ce1)
 - [2025-07-02] [Migrate to Zod 4 [ROUGH]](https://github.com/rubriclab/state/commit/387d8251bbb9f89b06b99fad80ed64a341255fa5)
