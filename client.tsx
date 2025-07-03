@@ -1,14 +1,15 @@
 'use client'
 
-import { createContext, type ReactNode, useContext, useEffect, useState } from 'react'
+import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from 'react'
 import type { z } from 'zod/v4'
 import { eventSchema, THIRTY_DAYS } from './utils'
 
 type GenericSchema = z.ZodDefault<z.ZodObject<Record<string, z.ZodTypeAny>>>
 
-type Updater<T extends GenericSchema = GenericSchema> = (
-	prev: z.infer<T>[keyof z.infer<T>] | undefined
-) => z.infer<T>[keyof z.infer<T>]
+type Updater<
+	T extends GenericSchema = GenericSchema,
+	Key extends keyof z.infer<T> = keyof z.infer<T>
+> = (prev: z.infer<T>[Key] | undefined) => z.infer<T>[Key]
 
 type RealtimeContextType<T extends GenericSchema = GenericSchema> = {
 	getValue: <Key extends keyof z.infer<T>>(key: Key) => z.infer<T>[Key] | undefined
@@ -17,6 +18,10 @@ type RealtimeContextType<T extends GenericSchema = GenericSchema> = {
 
 const RealtimeContext = createContext<RealtimeContextType | null>(null)
 
+function getRealtimeContext<T extends GenericSchema>() {
+	return RealtimeContext as React.Context<RealtimeContextType<T>>
+}
+
 let socket: WebSocket | null = null
 
 type Subscriber<T extends GenericSchema = GenericSchema> = <Key extends keyof z.infer<T>>(
@@ -24,9 +29,15 @@ type Subscriber<T extends GenericSchema = GenericSchema> = <Key extends keyof z.
 	value: z.infer<T>[Key]
 ) => void
 
-const subscribers = new Set<Subscriber>()
-
-function createSocket({ websocketUrl, channelId }: { websocketUrl: string; channelId: string }) {
+function createSocket({
+	websocketUrl,
+	channelId,
+	subscribers
+}: {
+	websocketUrl: string
+	channelId: string
+	subscribers: Set<Subscriber>
+}) {
 	socket = new WebSocket(`${websocketUrl.replace('http', 'ws')}?channelId=${channelId}`)
 
 	socket.addEventListener('message', event => {
@@ -53,6 +64,7 @@ export function ProviderClient<T extends GenericSchema>({
 	websocketUrl: string
 }) {
 	const [state, setState] = useState<z.infer<T>>(initialState)
+	const { current: subscribers } = useRef<Set<Subscriber<T>>>(new Set())
 
 	useEffect(() => {
 		if (channelId && typeof document !== 'undefined') {
@@ -64,7 +76,7 @@ export function ProviderClient<T extends GenericSchema>({
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: we need to create the socket on mount
 	useEffect(() => {
-		if (!socket) createSocket({ channelId, websocketUrl })
+		if (!socket) createSocket({ channelId, subscribers, websocketUrl })
 
 		function subscriber<Key extends keyof z.infer<T>>(key: Key, value: z.infer<T>[Key]): void {
 			setState(prev => ({ ...prev, [key]: value }))
@@ -88,20 +100,25 @@ export function ProviderClient<T extends GenericSchema>({
 		return state[key]
 	}
 
-	const setValue = <Key extends keyof z.infer<T>>(key: Key, updater: z.infer<T>[Key] | Updater) => {
+	const setValue = <Key extends keyof z.infer<T>>(
+		key: Key,
+		updater: z.infer<T>[Key] | Updater<T, Key>
+	) => {
 		setState(prev => {
-			const newValue = typeof updater === 'function' ? (updater as Updater)(prev[key]) : updater
+			const newValue = updater instanceof Function ? updater(prev[key]) : updater
 			return { ...prev, [key]: newValue }
 		})
-		const valueToSend = typeof updater === 'function' ? (updater as Updater)(state[key]) : updater
+		const valueToSend = updater instanceof Function ? updater(state[key]) : updater
 		socket?.send(JSON.stringify({ [key as string]: valueToSend }))
 	}
+
+	const RealtimeContext = getRealtimeContext<T>()
 
 	return (
 		<RealtimeContext.Provider
 			value={{
 				getValue,
-				setValue: setValue as <Key extends keyof z.infer<T>>(key: Key, updater: unknown) => void
+				setValue
 			}}
 		>
 			{children}
